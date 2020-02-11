@@ -1,12 +1,13 @@
-package com.example.somenews.usersdatabase
+package com.example.somenews.db.dao
 
 import androidx.room.*
-import com.example.somenews.usersdatabase.User
+import com.example.somenews.db.entity.User
 
 @Dao
 interface UserDao {
     @Query ("SELECT * FROM user WHERE id = :id ")
     suspend fun getById(id : Int): User
+
     @Query("SELECT * FROM user WHERE name = :name ")
     suspend fun getByName(name: String) : User
 
