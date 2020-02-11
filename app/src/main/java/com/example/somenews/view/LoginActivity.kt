@@ -1,6 +1,7 @@
 package com.example.somenews.view
 
 import android.os.Bundle
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -11,17 +12,17 @@ import com.example.somenews.db.entity.User
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
 
 class LoginActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+        supportActionBar?.hide()
 
-        set_user_login_button.setOnClickListener {
+
+  /*      set_user_login_button.setOnClickListener {
             val name = user_name_edit_text.text.toString()
             val password = user_password_edit_text.text.toString()
             lifecycleScope.launch {
@@ -43,8 +44,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
         }
+   */
 
-        find_user_login_button.setOnClickListener {
+        sign_up_user_login_button.setOnClickListener {
             val name = user_name_edit_text.text.toString()
             val password = user_password_edit_text.text.toString()
             lifecycleScope.launch {
@@ -75,45 +77,10 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        delete_button.setOnClickListener {
-            lifecycleScope.launch {
-            val id = input_id.text.toString().toInt()
-            val user = findById(id)
-            deleteUser(user)
-
-            }
-        }
-
-        button_find_by_id.setOnClickListener {
-            lifecycleScope.launch {
-                try {
-                    val id = input_id.text.toString().toInt()
-                    val user = findById(id)
-                    name_text_view.text = user.name
-                    password_text_view.text = user.password
-
-                }catch (e:Exception){
-
-                    Toast.makeText(this@LoginActivity,e.cause.toString(),Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    private fun deleteUser(user: User) = lifecycleScope.launch{
-        try {
-            val userDao = UsersDataBase.getInstance(this@LoginActivity).userDao()
-            userDao.delete(user)
-            Toast.makeText(this@LoginActivity,"Успешно удален",Toast.LENGTH_LONG).show()
-
-        }catch (e:Exception){
-            Toast.makeText(this@LoginActivity,e.message,Toast.LENGTH_LONG).show()
-        }
     }
 
     private suspend fun checkByName(name: String) : User {
         val userDao = UsersDataBase.getInstance(this@LoginActivity).userDao()
-
         return userDao.getByName(name)
     }
 
@@ -122,18 +89,13 @@ class LoginActivity : AppCompatActivity() {
             val userDao = UsersDataBase.getInstance(this@LoginActivity)
             val hashPassword = BCrypt.withDefaults().hashToString(12,user.password.toCharArray())
             user.password = hashPassword
-            
+
              userDao.userDao().insert(user)
             Toast.makeText(this@LoginActivity,"Успешно",Toast.LENGTH_SHORT).show()
         } catch (e:Exception){
             println(e)
             Toast.makeText(this@LoginActivity,"Ошибка",Toast.LENGTH_SHORT).show()
         }
-    }
-
-    private suspend fun findById(id:Int): User = withContext(Dispatchers.IO){
-            val userDao = UsersDataBase.getInstance(this@LoginActivity)
-            userDao.userDao().getById(id)
     }
 
 }
