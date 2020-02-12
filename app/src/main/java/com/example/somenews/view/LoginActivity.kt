@@ -1,5 +1,6 @@
 package com.example.somenews.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Window
 import android.widget.Toast
@@ -66,6 +67,13 @@ class LoginActivity : AppCompatActivity() {
                     if (userName.name == name){
                         if (verified){
                             Toast.makeText(this@LoginActivity,"Вход",Toast.LENGTH_LONG).show()
+                            if (userName.name == "Raider"){
+                                val intent = Intent(this@LoginActivity,FeedAdminActivity::class.java)
+                                startActivity(intent)
+                            }else{
+                                val intent = Intent(this@LoginActivity,FeedActivity::class.java)
+                                startActivity(intent)
+                            }
                         }else{
                             Toast.makeText(this@LoginActivity,"Неверный пароль",Toast.LENGTH_LONG).show()
                         }

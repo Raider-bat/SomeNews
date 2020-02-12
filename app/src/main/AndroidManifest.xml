@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.AddNewsActivity"></activity>
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.FeedActivity">
-        </activity>
+        <activity android:name=".view.FeedActivity"></activity>
+        <activity android:name=".view.FeedAdminActivity"></activity>
     </application>
 
 </manifest>

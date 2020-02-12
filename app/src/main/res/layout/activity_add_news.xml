@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddNewsActivity">
+
+    <EditText
+        android:id="@+id/editText_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/style_of_edit_text_add_news"
+        android:hint="@string/edit_text_heading_hint"
+        android:inputType="textMultiLine|textCapSentences"
+        android:isScrollContainer="true"
+        android:maxLines="3"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_heading" />
+
+    <EditText
+        android:id="@+id/editText_news_content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/style_of_edit_text_add_news"
+        android:hint="@string/edit_text_content_news"
+        android:inputType="textMultiLine|textCapSentences"
+        android:isScrollContainer="true"
+        android:maxLines="10"
+        android:paddingStart="10dp"
+        android:paddingTop="5dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/editText_heading"
+        app:layout_constraintStart_toStartOf="@+id/editText_heading"
+        app:layout_constraintTop_toBottomOf="@+id/textView_content" />
+
+    <TextView
+        android:id="@+id/textView_heading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Введите заголовок новости"
+        android:textColor="#444444"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/editText_heading"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Введите содержание новости"
+        android:textColor="#444444"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/editText_news_content"
+        app:layout_constraintTop_toBottomOf="@+id/editText_heading" />
+</androidx.constraintlayout.widget.ConstraintLayout>
