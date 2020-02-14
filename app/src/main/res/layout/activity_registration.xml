@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginActivity">
+    tools:context=".view.RegistrationActivity">
+
 
     <EditText
         android:id="@+id/registration_user_name_edit_text"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="18dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/style_of_edit_texts_login_activity"
         android:fontFamily="sans-serif-light"
@@ -20,18 +21,19 @@
         android:paddingEnd="10dp"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/registration_textView" />
 
     <EditText
         android:id="@+id/registration_user_password_edit_text"
         android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="8dp"
+        android:inputType="textPassword"
         android:background="@drawable/style_of_edit_texts_login_activity"
         android:fontFamily="sans-serif-light"
         android:hint="@string/user_password_hint_text"
-        android:inputType="textPassword"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         android:textSize="16sp"
@@ -41,40 +43,31 @@
 
 
     <Button
-        android:id="@+id/sign_up_user_login_button"
+        android:id="@+id/registration_user_button"
         android:layout_width="160dp"
         android:layout_height="40dp"
         android:layout_marginTop="24dp"
         android:background="@drawable/style_of_sign_up_button"
-        android:text="Вход "
+        android:text="Регистрация"
         android:textColor="#ffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_user_password_edit_text" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="190dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="65dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_foreground" />
-
     <TextView
-        android:id="@+id/registration_textlink_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:text="Не зарегистрированы?"
-        android:textColor="#2D9AC5"
-        android:textSize="15sp"
+        android:id="@+id/registration_textView"
+        android:layout_width="320dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="sans-serif-medium"
+        android:text="Выберите имя пользователя и пароль"
+        android:textAlignment="center"
+        android:textColor="#505050"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_up_user_login_button" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
