@@ -1,9 +1,8 @@
 package com.example.somenews.viewmodel
 
-import android.app.Application
 import android.content.Intent
 import android.widget.Toast
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import at.favre.lib.crypto.bcrypt.BCrypt
 import com.example.somenews.db.entity.User
@@ -14,9 +13,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserViewModel(application: Application): AndroidViewModel(application) {
-    private val context = application.baseContext
-    private val repository = UsersRepository(application)
+class UserViewModel(private val repository: UsersRepository): ViewModel() {
+
+
 
     fun userSignUp(name:String, password:String){
          viewModelScope.launch {
@@ -30,27 +29,31 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
                     }
                 if (user.name == name) {
                     if (verified) {
-                        Toast.makeText(context, "Вход", Toast.LENGTH_LONG).show()
+//                             Toast.makeText(context, "Вход", Toast.LENGTH_LONG).show()
+                        println("ЗАЛОГИНИЛОСЬ ЗАЕБИСЬ")
                         if (user.name == "Raider") {
-                            val intent = Intent(context, FeedAdminActivity::class.java)
-                            context.startActivity(intent)
+
+//                            val intent = Intent(context, FeedAdminActivity::class.java)
+//                            context.startActivity(intent)
 
                         } else {
-                            val intent = Intent(context, FeedActivity::class.java)
-                            context.startActivity(intent)
+//                            val intent = Intent(context, FeedActivity::class.java)
+//                            context.startActivity(intent)
                         }
                     } else {
-                        Toast.makeText(context, "Неверный пароль", Toast.LENGTH_LONG).show()
+                        println("НЕВЕРНЫЙ ПАРОЛЬ СУКА")
+//                        Toast.makeText(context, "Неверный пароль", Toast.LENGTH_LONG).show()
 
                     }
                 }
             } catch (e: Exception) {
-                Toast.makeText(
-                    context,
-                    "Аккаунта с таким именем не существует",
-                    Toast.LENGTH_LONG
-                )
-                    .show()
+                println("ВЫЛЕТЕЛО НАХУЙ")
+//                Toast.makeText(
+//                    context,
+//                    "Аккаунта с таким именем не существует",
+//                    Toast.LENGTH_LONG
+//                )
+//                    .show()
             }
         }
     }
@@ -60,22 +63,22 @@ class UserViewModel(application: Application): AndroidViewModel(application) {
             val user = repository.getByName(name) as User?
 
             if (user?.name != null){
-                Toast.makeText(context,
-                    "Аккаунт с подобным именем уже существует",
-                    Toast.LENGTH_LONG)
-                    .show()
+//                Toast.makeText(context,
+//                    "Аккаунт с подобным именем уже существует",
+//                    Toast.LENGTH_LONG)
+//                    .show()
             }else{
                 val hashPassword = BCrypt.withDefaults()
                     .hashToString(12,
                     password.toCharArray())
 
                 repository.insert(User(name, hashPassword))
-                Toast.makeText(context,"Успешно",Toast.LENGTH_SHORT).show()
-                val intent = Intent(context, FeedActivity::class.java)
-                context.startActivity(intent)
+//                Toast.makeText(context,"Успешно",Toast.LENGTH_SHORT).show()
+//                val intent = Intent(context, FeedActivity::class.java)
+//                context.startActivity(intent)
             }
         }catch (e:Exception){
-            Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show()
-        }
+//            Toast.makeText(context,e.toString(),Toast.LENGTH_LONG).show()
+       }
     }
 }

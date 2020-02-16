@@ -1,23 +1,12 @@
 package com.example.somenews.repository
 
-import android.app.Application
-import com.example.somenews.db.UsersDataBase
 import com.example.somenews.db.dao.UserDao
 import com.example.somenews.db.entity.User
-import kotlinx.coroutines.*
-import kotlin.coroutines.CoroutineContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class UsersRepository(application: Application): CoroutineScope {
+class UsersRepository(private val userDao: UserDao) {
 
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main
-
-    private var userDao: UserDao
-
-    init {
-        val db = UsersDataBase.getInstance(application)
-         userDao = db.userDao()
-    }
 
     suspend fun getByName(name:String):User = getByNameBG(name)
 

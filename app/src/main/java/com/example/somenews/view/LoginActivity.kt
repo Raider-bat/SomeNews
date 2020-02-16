@@ -6,23 +6,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.somenews.R
 import com.example.somenews.viewmodel.UserViewModel
-import com.example.somenews.db.UsersDataBase
-import com.example.somenews.db.entity.User
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var userViewModel: UserViewModel
+
+
+    private val myViewModel : UserViewModel by viewModel()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
 
         sign_up_user_login_button.setOnClickListener {
             val name = registration_user_name_edit_text.text.toString()
             val password = registration_user_password_edit_text.text.toString()
-             println(userViewModel.userSignUp(name,password))
+             println(myViewModel.userSignUp(name,password))
         }
 
         clickOnRegistrationLink()
