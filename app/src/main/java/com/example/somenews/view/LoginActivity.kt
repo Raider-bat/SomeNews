@@ -2,8 +2,10 @@ package com.example.somenews.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.R
 import com.example.somenews.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -20,12 +22,42 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         sign_up_user_login_button.setOnClickListener {
+
             val name = registration_user_name_edit_text.text.toString()
             val password = registration_user_password_edit_text.text.toString()
-             println(myViewModel.userSignUp(name,password))
+            myViewModel.userSignUp(name,password)
         }
 
+        signUpResultObserver()
         clickOnRegistrationLink()
+    }
+
+    private fun signUpResultObserver() {
+        val signInResult = myViewModel.getSignInResult()
+
+        signInResult.observe(this, Observer<EnumAuthResult> { result ->
+            when(result){
+                EnumAuthResult.ADMIN_SIGN_UP ->{
+                    Toast.makeText(this, "Вход", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, FeedAdminActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                EnumAuthResult.USER_SIGN_UP ->{
+                    Toast.makeText(this, "Вход", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, FeedActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                EnumAuthResult.WRONG_PASSWORD ->{
+                    Toast.makeText(this, "Неверный пароль", Toast.LENGTH_LONG).show()
+                }
+                EnumAuthResult.ACCOUNT_NOT_FOUND ->{
+                    Toast.makeText(this, "Подобного аккаунта не существует", Toast.LENGTH_LONG).show()
+                }
+                else -> Toast.makeText(this, "Неизвестная ошибка", Toast.LENGTH_LONG).show()
+            }
+        })
     }
 
     private fun clickOnRegistrationLink(){

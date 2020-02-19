@@ -3,20 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.somenews">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".application.MyApplication"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher_may"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_may_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:allowBackup="false">
-        <activity android:name=".view.RegistrationActivity"
-            android:noHistory="true"/>
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.ArrayNewsActivity"></activity>
+        <activity android:name=".view.RegistrationActivity" />
         <activity android:name=".view.AddNewsActivity" />
-        <activity android:name=".view.LoginActivity"
-            android:noHistory="true">
+        <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

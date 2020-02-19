@@ -7,7 +7,7 @@ data class NewsResponse(
 )
 
 data class Article(
-    val author: String,
+    var author: String,
     val content: String,
     val description: String,
     val publishedAt: String,

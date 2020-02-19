@@ -44,11 +44,12 @@
         android:id="@+id/sign_up_user_login_button"
         android:layout_width="160dp"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/style_of_sign_up_button"
         android:text="Вход "
         android:textColor="#ffff"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registration_user_password_edit_text" />
 

@@ -1,10 +1,11 @@
 package com.example.somenews.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.Observer
+import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.R
-import com.example.somenews.db.UsersDataBase
 import com.example.somenews.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -12,6 +13,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RegistrationActivity : AppCompatActivity() {
 
     private val userViewModel : UserViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -22,7 +24,28 @@ class RegistrationActivity : AppCompatActivity() {
             userViewModel.userRegistration(name, password)
 
         }
+        resultCreateAccount()
     }
 
+    private fun resultCreateAccount() {
+        val signUpResult = userViewModel.getSignUpResult()
 
+        signUpResult.observe(this,  Observer<EnumAuthResult>{ result ->
+            when(result){
+                EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL ->{
+                    Toast.makeText(this,"Успешно", Toast.LENGTH_SHORT).show()
+                }
+
+                EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST ->{
+                    Toast.makeText(this,"Подобный аккаунт уже существует", Toast.LENGTH_SHORT).show()
+                }
+
+                EnumAuthResult.ACCOUNT_CREATE_EXCEPTION ->{
+                    Toast.makeText(this,"Подобный аккаунт уже существует", Toast.LENGTH_SHORT).show()
+                }
+
+                else -> Toast.makeText(this,"Неизвесная ошибка", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

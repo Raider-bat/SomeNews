@@ -7,9 +7,10 @@ import androidx.room.PrimaryKey
 @Entity
 data class News(
     var title: String,
-    var preview: ImageView? = null,
+    var urlToImage: String,
     var content: String,
-    var date: String
+    var date: String,
+    var author: String
 ) {
     @PrimaryKey
     var id: Int = 0
