@@ -1,11 +1,16 @@
 package com.example.somenews.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class NewsResponse(
     val articles: List<Article>,
     val status: String,
     val totalResults: Int
-)
+) : Parcelable
 
+@Parcelize
 data class Article(
     var author: String,
     val content: String,
@@ -15,9 +20,10 @@ data class Article(
     val title: String,
     val url: String,
     val urlToImage: String
-)
+) : Parcelable
 
+@Parcelize
 data class Source(
     val id: String,
     val name: String
-)
+) : Parcelable

@@ -7,7 +7,9 @@ import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item
 import kotlinx.android.synthetic.main.item_article.view.*
 
-class ArticleItem(private val article: Article) : Item<GroupieViewHolder>() {
+class ArticleItem(
+    val article: Article
+) : Item<GroupieViewHolder>() {
 
     override fun getLayout(): Int {
         return R.layout.item_article

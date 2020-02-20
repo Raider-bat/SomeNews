@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.somenews.R
+import com.example.somenews.db.entity.News
 import com.example.somenews.item.LocalNewsItem
 import com.example.somenews.model.NewsResponse
 import com.example.somenews.viewmodel.NewsViewModel
@@ -25,11 +26,11 @@ class FeedActivity : AppCompatActivity() {
         news_recyclerview.layoutManager = LinearLayoutManager(this)
         news_recyclerview.adapter = adapter
 
-        val newsList = myViewModel.newsLiveDataFromApi()
+        val newsListLiveData = myViewModel.newsLiveDataFromLocally()
 
-        newsList.observe(this, Observer<NewsResponse> {news ->
-            news.articles.map {article ->
-                adapter.add(LocalNewsItem(article))
+        newsListLiveData.observe(this, Observer { newsList ->
+            newsList.map { news ->
+                adapter.add(LocalNewsItem(news))
             }
         })
     }

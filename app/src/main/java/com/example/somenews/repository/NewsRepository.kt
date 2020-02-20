@@ -35,5 +35,7 @@ class NewsRepository (private val newsService: NewsService, private val newsDao:
         }
     }
 
-    suspend fun setNewsInLocaly(news: News) = newsDao.setNews(news)
+    suspend fun setNewsInLocally(news: News) = newsDao.setNews(news)
+
+    suspend fun deleteNewsInLocally(news: News) = newsDao.deleteNews(news)
 }

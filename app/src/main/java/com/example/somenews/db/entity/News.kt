@@ -1,6 +1,5 @@
 package com.example.somenews.db.entity
 
-import android.widget.ImageView
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -10,8 +9,9 @@ data class News(
     var urlToImage: String,
     var content: String,
     var date: String,
-    var author: String
+    var author: String,
+    var url: String
 ) {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0
 }

@@ -6,4 +6,6 @@
     <string name="menu_add_news_from_api">Добавить новость из источника</string>
     <string name="edit_text_heading_hint">Заголовок</string>
     <string name="edit_text_content_news">Содержание</string>
+    <string name="input_content_news">Введите содержание новости</string>
+    <string name="input_title_news">Введите заголовок новости</string>
 </resources>

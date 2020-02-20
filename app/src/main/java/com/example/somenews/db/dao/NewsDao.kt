@@ -8,6 +8,7 @@ import com.example.somenews.db.entity.News
 
 @Dao
 interface NewsDao {
+
     @Query("SELECT * FROM NEWS")
     suspend fun getAllNews(): List<News>
 
@@ -16,5 +17,4 @@ interface NewsDao {
 
     @Delete
     suspend fun deleteNews(news: News)
-
 }

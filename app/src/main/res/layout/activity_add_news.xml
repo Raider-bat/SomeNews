@@ -24,7 +24,8 @@
         android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_heading" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_heading"
+         />
 
     <EditText
         android:id="@+id/editText_news_content"
@@ -42,7 +43,7 @@
         android:paddingBottom="5dp"
         app:layout_constraintEnd_toEndOf="@+id/editText_heading"
         app:layout_constraintStart_toStartOf="@+id/editText_heading"
-        app:layout_constraintTop_toBottomOf="@+id/textView_content" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_article_content" />
 
     <TextView
         android:id="@+id/textView_heading"
@@ -50,19 +51,19 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Введите заголовок новости"
+        android:text="@string/input_title_news"
         android:textColor="#444444"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/editText_heading"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_content"
+        android:id="@+id/textView_article_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Введите содержание новости"
+        android:text="@string/input_content_news"
         android:textColor="#444444"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/editText_news_content"

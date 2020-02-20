@@ -30,6 +30,7 @@ val databaseModule = module {
             application,
             UsersDataBase::class.java,
             "users_database")
+            .fallbackToDestructiveMigration()
             .build()
 
     fun provideUserDao(dataBase: UsersDataBase) = dataBase.userDao()
