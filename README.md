@@ -6,9 +6,9 @@ The application is built on MVVM architecture, it uses such libraries as Room,
 Koin (Dependency Injection), Retrofit, Grouipe adapter, Picasso.
 
 ___
-#### на русском
+#### На русском
 
-Мобильное приложение для Gexabyte. Это приложение реализует регистрацию и вход, добравление и удаление новостей в админ аккаунте. Приложение построено на MVVM архитектуре, в нем используются такие библиотеки как Room, Koin (Dependency Injection), Retrofit, Grouipe adapter, Picasso
+Мобильное приложение для Gexabyte. Это приложение реализует регистрацию и вход, добавление и удаление новостей в админ аккаунте. Приложение построено на MVVM архитектуре, в нем используются такие библиотеки как Room, Koin (Dependency Injection), Retrofit, Grouipe adapter, Picasso
 
 ____
 #### Экран входа
