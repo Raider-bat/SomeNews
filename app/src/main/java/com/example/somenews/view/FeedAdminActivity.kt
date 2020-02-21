@@ -1,27 +1,32 @@
 package com.example.somenews.view
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.somenews.actionmode.FeedAdminActionMode
 import com.example.somenews.R
+import com.example.somenews.actionmode.FeedAdminActionMode
 import com.example.somenews.item.LocalNewsItem
 import com.example.somenews.viewmodel.NewsViewModel
+import com.example.somenews.viewmodel.UserViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.OnItemLongClickListener
 import kotlinx.android.synthetic.main.activtiy_feed_admin.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.util.*
 
 class FeedAdminActivity : AppCompatActivity() {
 
     private val adapter  = GroupAdapter<GroupieViewHolder>()
     private val myViewModel: NewsViewModel by viewModel()
+    private val userViewModel: UserViewModel by viewModel()
+    private val newsListHashMap = HashMap<Int,LocalNewsItem>()
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.admin_menu, menu)
@@ -31,14 +36,16 @@ class FeedAdminActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (item !=null){
             when (item.itemId){
-                R.id.menu_add_news_from_locally ->{
-                    val intent = Intent(this, AddNewsActivity::class.java)
-                    startActivity(intent)
-                }
 
-                R.id.menu_add_news_from_api ->{
+                R.id.admin_menu_add_news_from_api ->{
                     val intent = Intent(this, ArrayNewsActivity::class.java)
                     startActivity(intent)
+                }
+                R.id.admin_menu_sing_out ->{
+                    userViewModel.deleteVerifiedUser()
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             }
         }
@@ -61,8 +68,10 @@ class FeedAdminActivity : AppCompatActivity() {
         newsListLiveData.observe(this, Observer { newsList ->
             newsList.map { news ->
                 println(news)
-                adapter.add(LocalNewsItem(news))
+                newsListHashMap[news.id] = LocalNewsItem(news)
             }
+
+            adapter.update(newsListHashMap.values)
         })
 
         val deleteNewsLiveData = FeedAdminActionMode.deleteNewsLiveData
@@ -78,6 +87,15 @@ class FeedAdminActivity : AppCompatActivity() {
         })
 
         adapter.setOnItemLongClickListener(onItemLongClickListener)
+        adapter.setOnItemClickListener(onItemClickListener)
+    }
+
+    private val onItemClickListener = OnItemClickListener{ item, _ ->
+        val localNewsItem = item as LocalNewsItem
+
+        val intent = Intent(this, FullLocalNewsActivity::class.java)
+        intent.putExtra(FeedActivity.NEWS_KEY, localNewsItem.news)
+        startActivity(intent)
     }
 
     private val onItemLongClickListener = OnItemLongClickListener{ item, _ ->

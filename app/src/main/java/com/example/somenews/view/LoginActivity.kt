@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.R
+import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -20,6 +20,25 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
+
+        val verifiedUserLiveData = myViewModel.getVerifiedUserLiveData()
+
+        verifiedUserLiveData.observe(this, Observer { verifiedUser ->
+         if (verifiedUser?.name == "Raider"){
+
+             val intent = Intent(this, FeedAdminActivity::class.java)
+             startActivity(intent)
+             finish()
+
+         } else
+             if (verifiedUser?.name != "Raider" && verifiedUser?.name !=null){
+
+             val intent = Intent(this, FeedActivity::class.java)
+             startActivity(intent)
+             finish()
+         }
+
+        } )
 
         sign_up_user_login_button.setOnClickListener {
 

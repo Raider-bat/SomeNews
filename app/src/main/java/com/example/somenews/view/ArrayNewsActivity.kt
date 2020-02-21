@@ -6,13 +6,16 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.somenews.actionmode.ArrayNewsActionMode
 import com.example.somenews.R
+import com.example.somenews.actionmode.ArrayNewsActionMode
 import com.example.somenews.db.entity.News
 import com.example.somenews.item.ArticleItem
 import com.example.somenews.model.NewsResponse
 import com.example.somenews.viewmodel.NewsViewModel
-import com.xwray.groupie.*
+import com.xwray.groupie.GroupAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.OnItemClickListener
+import com.xwray.groupie.OnItemLongClickListener
 import kotlinx.android.synthetic.main.activity_array_news.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -28,6 +31,7 @@ class ArrayNewsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_array_news)
+        supportActionBar?.title = "News from NewsAPI"
 
         recycler_view_articles.layoutManager = LinearLayoutManager(this)
         recycler_view_articles.adapter = adapter

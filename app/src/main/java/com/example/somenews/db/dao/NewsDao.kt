@@ -1,5 +1,6 @@
 package com.example.somenews.db.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +11,7 @@ import com.example.somenews.db.entity.News
 interface NewsDao {
 
     @Query("SELECT * FROM NEWS")
-    suspend fun getAllNews(): List<News>
+     fun getAllNews(): LiveData<List<News>>
 
     @Insert
     suspend fun setNews(news: News)

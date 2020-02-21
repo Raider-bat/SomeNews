@@ -8,4 +8,5 @@
     <string name="edit_text_content_news">Содержание</string>
     <string name="input_content_news">Введите содержание новости</string>
     <string name="input_title_news">Введите заголовок новости</string>
+    <string name="user_sign_out">Выход</string>
 </resources>

@@ -16,13 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.FullLocalNewsActivity">
+        </activity>
         <activity android:name=".view.FullArticleActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".view.ArrayNewsActivity" />
         </activity>
         <activity android:name=".view.ArrayNewsActivity" />
-        <activity android:name=".view.RegistrationActivity"/>
+        <activity android:name=".view.RegistrationActivity" />
         <activity android:name=".view.AddNewsActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>

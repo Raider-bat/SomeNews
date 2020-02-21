@@ -1,11 +1,10 @@
 package com.example.somenews.repository
 
+import androidx.lifecycle.LiveData
 import com.example.somenews.db.dao.NewsDao
 import com.example.somenews.db.entity.News
 import com.example.somenews.model.NewsResponse
 import com.example.somenews.service.NewsService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,10 +28,9 @@ class NewsRepository (private val newsService: NewsService, private val newsDao:
             })
     }
 
-    suspend fun getAllNewsFromLocally(): List<News>{
-        return withContext(Dispatchers.IO){
-             newsDao.getAllNews()
-        }
+     fun getAllNewsFromLocally(): LiveData<List<News>>{
+
+        return newsDao.getAllNews()
     }
 
     suspend fun setNewsInLocally(news: News) = newsDao.setNews(news)

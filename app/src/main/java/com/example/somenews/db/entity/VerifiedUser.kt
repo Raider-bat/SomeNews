@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class User(
+data class VerifiedUser(
     var name: String = "",
     var password: String = ""
 ) {
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     var id = 0
 }

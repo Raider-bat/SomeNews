@@ -14,17 +14,15 @@ import kotlinx.coroutines.launch
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
     private var newsLiveDataFromApi = MutableLiveData<NewsResponse>()
-    private var newsLiveDataFromLocally =  MutableLiveData<List<News>>()
+
 
     fun newsLiveDataFromApi(): LiveData<NewsResponse> {
         getNewsFromNewsApi()
         return newsLiveDataFromApi
     }
 
-    fun newsLiveDataFromLocally(): LiveData<List<News>> {
-        getNewsFromLocally()
-        return newsLiveDataFromLocally
-    }
+    fun newsLiveDataFromLocally(): LiveData<List<News>> =
+        repository.getAllNewsFromLocally()
 
     fun setNewsInLocallyDB(news: News) = viewModelScope.launch {
         repository.setNewsInLocally(news)
@@ -46,7 +44,6 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
         }
     }
 
-   private fun getNewsFromLocally() = viewModelScope.launch{
-        newsLiveDataFromLocally.value =  repository.getAllNewsFromLocally()
-    }
+
+
 }

@@ -20,7 +20,7 @@ val viewModelModule = module {
 }
 
 val repositoryModule = module {
-    single { UsersRepository(get()) }
+    single { UsersRepository(get(),get()) }
     single { NewsRepository(get(),get()) }
 }
 
@@ -30,13 +30,14 @@ val databaseModule = module {
             application,
             UsersDataBase::class.java,
             "users_database")
-            .fallbackToDestructiveMigration()
             .build()
 
     fun provideUserDao(dataBase: UsersDataBase) = dataBase.userDao()
+    fun provideVerifiedUserDao(dataBase: UsersDataBase) = dataBase.verifiedUserDao()
     fun provideNewsDao(dataBase: UsersDataBase) = dataBase.newsDao()
     single { provideDatabase(androidApplication()) }
     single { provideUserDao(get()) }
+    single { provideVerifiedUserDao(get()) }
     single { provideNewsDao(get()) }
 }
 

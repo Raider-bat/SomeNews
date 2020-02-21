@@ -1,7 +1,7 @@
 package com.example.somenews.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.somenews.R
 import com.example.somenews.model.Article
 import com.squareup.picasso.Picasso
@@ -12,6 +12,7 @@ class FullArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_article)
+        supportActionBar?.title = "News from Api"
 
         val article = intent.getParcelableExtra<Article>(ArrayNewsActivity.ARTICLE_KEY)
 

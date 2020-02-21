@@ -2,11 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/admin_menu_add_news_from_api"
-        android:title="@string/menu_add_news_from_api"
-        app:showAsAction="never"/>
-
-    <item android:id="@+id/admin_menu_sing_out"
+    <item android:id="@+id/user_menu_sing_out"
         android:title="@string/user_sign_out"
         app:showAsAction="never"/>
 </menu>

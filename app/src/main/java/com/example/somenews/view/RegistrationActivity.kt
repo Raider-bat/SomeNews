@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.R
+import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -34,6 +34,7 @@ class RegistrationActivity : AppCompatActivity() {
             when(result){
                 EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL ->{
                     Toast.makeText(this,"Успешно", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
 
                 EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST ->{
@@ -41,7 +42,7 @@ class RegistrationActivity : AppCompatActivity() {
                 }
 
                 EnumAuthResult.ACCOUNT_CREATE_EXCEPTION ->{
-                    Toast.makeText(this,"Подобный аккаунт уже существует", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this,"Ошибка регистрации", Toast.LENGTH_SHORT).show()
                 }
 
                 else -> Toast.makeText(this,"Неизвесная ошибка", Toast.LENGTH_SHORT).show()
