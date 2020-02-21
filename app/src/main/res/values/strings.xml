@@ -9,4 +9,10 @@
     <string name="input_content_news">Введите содержание новости</string>
     <string name="input_title_news">Введите заголовок новости</string>
     <string name="user_sign_out">Выход</string>
+    <string name="text_registration_user_button">Регистрация</string>
+    <string name="text_registration_text_view">Выберите имя пользователя и пароль</string>
+    <string name="text_view_password_rules">Пароль должен состоять минимум из 6 символов</string>
+    <string name="text_view_name_rules">Имя должно состоять минимум из 3 символов</string>
+    <string name="text_registration_textlink">Не зарегистрированы?</string>
+    <string name="text_sign_in_login_button">Вход</string>
 </resources>

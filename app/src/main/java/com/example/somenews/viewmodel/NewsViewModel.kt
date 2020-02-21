@@ -40,10 +40,7 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
                 }
             })
         } catch (e: Exception) {
-            println(e)
+            print(e.stackTrace)
         }
     }
-
-
-
 }

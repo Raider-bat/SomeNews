@@ -35,53 +35,63 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
     fun userSignUp(name:String, password:String){
          viewModelScope.launch {
             try {
+                if (name.length in 3..25 || password.length in 6..30 ) {
                     val user = repository.getByName(name)
-                println(user)
+                    println(user)
                     val verified =
                         withContext(Dispatchers.IO) {
                             BCrypt
                                 .verifyer()
                                 .verify(password.toCharArray(), user.password).verified
                         }
-                if (user.name == name) {
+                    if (user.name == name) {
 
-                    if (verified) {
+                        if (verified) {
 
-                        if (user.name == "Raider") {
-                            signInResult.value = EnumAuthResult.ADMIN_SIGN_UP
+                            if (user.name == "Raider") {
+                                signInResult.value = EnumAuthResult.ADMIN_SIGN_UP
+
+                            } else {
+                                signInResult.value = EnumAuthResult.USER_SIGN_UP
+                            }
+                            repository.insertVerifiedUser(VerifiedUser(user.name, user.password))
 
                         } else {
-                            signInResult.value = EnumAuthResult.USER_SIGN_UP
+                            signInResult.value = EnumAuthResult.WRONG_PASSWORD
                         }
-                        repository.insertVerifiedUser(VerifiedUser(user.name,user.password))
-
-                    } else {
-                        signInResult.value = EnumAuthResult.WRONG_PASSWORD
                     }
+                }else{
+                    signInResult.value = EnumAuthResult.WRONG_DATA
                 }
             } catch (e: Exception) {
                 signInResult.value = EnumAuthResult.ACCOUNT_NOT_FOUND
                 println(e)
             }
-        }
+         }
+
     }
 
     fun userRegistration(name: String,password: String) = viewModelScope.launch{
         try {
 
-            val user = repository.getByName(name) as User?
+            if (name.length in 3..25 || password.length in 6..30 ) {
+                val user = repository.getByName(name) as User?
 
-            if (user?.name != null){
+                if (user?.name != null) {
 
-                signUpResult.postValue(EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST)
-            }else{
+                    signUpResult.postValue(EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST)
+                } else {
 
-                val hashPassword = BCrypt.withDefaults()
-                    .hashToString(12,
-                    password.toCharArray())
-                repository.insert(User(name, hashPassword))
-                repository.insertVerifiedUser(VerifiedUser(name, hashPassword))
-                signUpResult.postValue(EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL)
+                    val hashPassword = BCrypt.withDefaults()
+                        .hashToString(
+                            12,
+                            password.toCharArray()
+                        )
+                    repository.insert(User(name, hashPassword))
+                    signUpResult.postValue(EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL)
+                }
+            } else{
+                signUpResult.postValue(EnumAuthResult.WRONG_DATA)
             }
         }catch (e:Exception){
 

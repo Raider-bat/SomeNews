@@ -45,6 +45,10 @@ class RegistrationActivity : AppCompatActivity() {
                     Toast.makeText(this,"Ошибка регистрации", Toast.LENGTH_SHORT).show()
                 }
 
+                EnumAuthResult.WRONG_DATA ->{
+                    Toast.makeText(this,"Неверно ведённые данные", Toast.LENGTH_SHORT).show()
+                }
+
                 else -> Toast.makeText(this,"Неизвесная ошибка", Toast.LENGTH_SHORT).show()
             }
         })

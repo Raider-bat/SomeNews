@@ -79,9 +79,7 @@ class FeedAdminActivity : AppCompatActivity() {
         deleteNewsLiveData.observe(this, Observer<LocalNewsItem>{newsItem ->
             if (FeedAdminActionMode.mActionMode != null){
                 myViewModel.deleteNewsInLocallyDB(newsItem.news)
-                adapter.
-                    removeGroupAtAdapterPosition(adapter.
-                        getAdapterPosition(newsItem))
+                newsListHashMap.remove(newsItem.news.id)
                 Toast.makeText(this,"Новость успешно удалена", Toast.LENGTH_SHORT).show()
             }
         })

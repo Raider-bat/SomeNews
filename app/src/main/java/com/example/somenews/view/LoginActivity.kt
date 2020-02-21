@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
 
         } )
 
-        sign_up_user_login_button.setOnClickListener {
+        sign_in_user_login_button.setOnClickListener {
 
             val name = registration_user_name_edit_text.text.toString()
             val password = registration_user_password_edit_text.text.toString()
@@ -73,6 +73,9 @@ class LoginActivity : AppCompatActivity() {
                 }
                 EnumAuthResult.ACCOUNT_NOT_FOUND ->{
                     Toast.makeText(this, "Подобного аккаунта не существует", Toast.LENGTH_LONG).show()
+                }
+                EnumAuthResult.WRONG_DATA ->{
+                    Toast.makeText(this, "Неверно введённые данные", Toast.LENGTH_LONG).show()
                 }
                 else -> Toast.makeText(this, "Неизвестная ошибка", Toast.LENGTH_LONG).show()
             }
