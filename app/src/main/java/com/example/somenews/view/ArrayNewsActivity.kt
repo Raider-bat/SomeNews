@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.somenews.R
 import com.example.somenews.actionmode.ArrayNewsActionMode
@@ -22,7 +23,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class ArrayNewsActivity : AppCompatActivity() {
 
     private val myViewModel: NewsViewModel by viewModel()
-    private val adapter = GroupAdapter<GroupieViewHolder>()
+    private val groupAdapter = GroupAdapter<GroupieViewHolder>()
 
     companion object{
         const val ARTICLE_KEY = "ARTICLE_KEY"
@@ -33,19 +34,31 @@ class ArrayNewsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_array_news)
         supportActionBar?.title = "News from NewsAPI"
 
-        recycler_view_articles.layoutManager = LinearLayoutManager(this)
-        recycler_view_articles.adapter = adapter
+        recycler_view_articles.apply {
+            layoutManager = LinearLayoutManager(this@ArrayNewsActivity)
+            adapter = groupAdapter
+            addItemDecoration(
+                DividerItemDecoration(
+                    this@ArrayNewsActivity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
 
-        val articles = myViewModel.newsLiveDataFromApi()
+        val articles = myViewModel.getNewsLiveDataFromApi()
 
         articles.observe(this, Observer<NewsResponse>{news ->
             news.articles.map {article ->
-                adapter.add(ArticleItem(article))
+                groupAdapter.add(ArticleItem(article))
 
             }
         })
-        adapter.setOnItemClickListener(onItemClickListener)
-        adapter.setOnItemLongClickListener(onItemLongClickListener)
+
+        groupAdapter.apply {
+
+            setOnItemClickListener(onItemClickListener)
+            setOnItemLongClickListener(onItemLongClickListener)
+        }
 
         val setNewsLiveData =
             ArrayNewsActionMode.setNewsLiveData
@@ -60,23 +73,33 @@ class ArrayNewsActivity : AppCompatActivity() {
     private val onItemClickListener = OnItemClickListener { item, _ ->
 
         val articleData = item as ArticleItem
-        val intent = Intent(this, FullArticleActivity::class.java)
-        println(articleData.article)
-        intent.putExtra(ARTICLE_KEY,articleData.article)
-         startActivity(intent)
+
+        if (ArrayNewsActionMode.mActionMode == null){
+
+            val intent = Intent(this, FullArticleActivity::class.java)
+            println(articleData.article)
+            intent.putExtra(ARTICLE_KEY,articleData.article)
+            startActivity(intent)
+        }
     }
 
-    private val onItemLongClickListener = OnItemLongClickListener{ item, _ ->
+    private val onItemLongClickListener = OnItemLongClickListener{ item, view ->
 
         val articleItem = item as ArticleItem
         val article = articleItem.article
         if (ArrayNewsActionMode.mActionMode !=null){
+
             return@OnItemLongClickListener false
         }else{
+
             ArrayNewsActionMode.mActionMode =
                 startActionMode(
-                    ArrayNewsActionMode(article)
+                    ArrayNewsActionMode(
+                        article,
+                        view
+                    )
                 )
+
             return@OnItemLongClickListener true
         }
     }

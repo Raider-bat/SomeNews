@@ -12,6 +12,7 @@ import com.example.somenews.repository.UsersRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class UserViewModel(private val repository: UsersRepository): ViewModel() {
 
@@ -49,11 +50,13 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
                         if (verified) {
 
                             if (user.name == "Raider") {
-                                signInResult.value = EnumAuthResult.ADMIN_SIGN_UP
 
+                                signInResult.value = EnumAuthResult.ADMIN_SIGN_UP
                             } else {
+
                                 signInResult.value = EnumAuthResult.USER_SIGN_UP
                             }
+
                             repository.insertVerifiedUser(VerifiedUser(user.name, user.password))
 
                         } else {
@@ -64,8 +67,9 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
                     signInResult.value = EnumAuthResult.WRONG_DATA
                 }
             } catch (e: Exception) {
+
                 signInResult.value = EnumAuthResult.ACCOUNT_NOT_FOUND
-                println(e)
+                Timber.d(e)
             }
          }
 
@@ -94,8 +98,8 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
                 signUpResult.postValue(EnumAuthResult.WRONG_DATA)
             }
         }catch (e:Exception){
-
             signUpResult.postValue(EnumAuthResult.ACCOUNT_CREATE_EXCEPTION)
+            Timber.d(e)
        }
     }
 

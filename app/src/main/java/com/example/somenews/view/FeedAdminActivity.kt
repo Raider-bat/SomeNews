@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.somenews.R
 import com.example.somenews.actionmode.FeedAdminActionMode
@@ -23,7 +24,7 @@ import java.util.*
 
 class FeedAdminActivity : AppCompatActivity() {
 
-    private val adapter  = GroupAdapter<GroupieViewHolder>()
+    private val groupAdapter  = GroupAdapter<GroupieViewHolder>()
     private val myViewModel: NewsViewModel by viewModel()
     private val userViewModel: UserViewModel by viewModel()
     private val newsListHashMap = HashMap<Int,LocalNewsItem>()
@@ -59,11 +60,19 @@ class FeedAdminActivity : AppCompatActivity() {
         val layoutManager = LinearLayoutManager(this)
         layoutManager.stackFromEnd = true
         layoutManager.reverseLayout = true
-        news_recyclerview.layoutManager = layoutManager
 
-        news_recyclerview.adapter = adapter
+        news_recyclerview.apply {
+            this.layoutManager = layoutManager
+            this.adapter = groupAdapter
+            this.addItemDecoration(
+                DividerItemDecoration(
+                    this@FeedAdminActivity,
+                DividerItemDecoration.VERTICAL
+                )
+            )
+        }
 
-        val newsListLiveData = myViewModel.newsLiveDataFromLocally()
+        val newsListLiveData = myViewModel.getNewsLiveDataFromLocally()
 
         newsListLiveData.observe(this, Observer { newsList ->
             newsList.map { news ->
@@ -71,7 +80,7 @@ class FeedAdminActivity : AppCompatActivity() {
                 newsListHashMap[news.id] = LocalNewsItem(news)
             }
 
-            adapter.update(newsListHashMap.values)
+            groupAdapter.update(newsListHashMap.values)
         })
 
         val deleteNewsLiveData = FeedAdminActionMode.deleteNewsLiveData
@@ -84,30 +93,38 @@ class FeedAdminActivity : AppCompatActivity() {
             }
         })
 
-        adapter.setOnItemLongClickListener(onItemLongClickListener)
-        adapter.setOnItemClickListener(onItemClickListener)
+        groupAdapter.apply {
+            setOnItemLongClickListener(onItemLongClickListener)
+            setOnItemClickListener(onItemClickListener)
+        }
     }
 
-    private val onItemClickListener = OnItemClickListener{ item, _ ->
+    private val onItemClickListener = OnItemClickListener{ item, view ->
         val localNewsItem = item as LocalNewsItem
 
-        val intent = Intent(this, FullLocalNewsActivity::class.java)
-        intent.putExtra(FeedActivity.NEWS_KEY, localNewsItem.news)
-        startActivity(intent)
+        if (FeedAdminActionMode.mActionMode == null) {
+            val intent = Intent(this, FullLocalNewsActivity::class.java)
+            intent.putExtra(FeedActivity.NEWS_KEY, localNewsItem.news)
+            startActivity(intent)
+        }
     }
 
-    private val onItemLongClickListener = OnItemLongClickListener{ item, _ ->
-        val localeNewsItem = item as LocalNewsItem
+    private val onItemLongClickListener = OnItemLongClickListener{ itemLongClick, viewLongClick ->
 
+        val localeNewsItem = itemLongClick as LocalNewsItem
         if (FeedAdminActionMode.mActionMode !=null){
+
             return@OnItemLongClickListener false
         }else{
+
             FeedAdminActionMode.mActionMode =
                 startActionMode(
                     FeedAdminActionMode(
-                        localeNewsItem
+                        localeNewsItem,
+                        viewLongClick
                     )
                 )
+
             return@OnItemLongClickListener true
         }
     }

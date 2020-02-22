@@ -1,5 +1,6 @@
 package com.example.somenews.view
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import com.example.somenews.enumclass.EnumAuthResult
 import com.example.somenews.viewmodel.UserViewModel
 import kotlinx.android.synthetic.main.activity_registration.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class RegistrationActivity : AppCompatActivity() {
 
@@ -17,6 +19,7 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+        supportActionBar?.hide()
 
         registration_user_button.setOnClickListener {
             val name = registration_user_name_edit_text.text.toString()
@@ -33,24 +36,35 @@ class RegistrationActivity : AppCompatActivity() {
         signUpResult.observe(this,  Observer<EnumAuthResult>{ result ->
             when(result){
                 EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL ->{
-                    Toast.makeText(this,"Успешно", Toast.LENGTH_SHORT).show()
+
+                    toast(EnumAuthResult.ACCOUNT_CREATE_SUCCESSFUL.string)
                     finish()
                 }
 
                 EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST ->{
-                    Toast.makeText(this,"Подобный аккаунт уже существует", Toast.LENGTH_SHORT).show()
+
+                    toast(EnumAuthResult.ACCOUNT_CREATE_ALREADY_EXIST.string)
                 }
 
                 EnumAuthResult.ACCOUNT_CREATE_EXCEPTION ->{
-                    Toast.makeText(this,"Ошибка регистрации", Toast.LENGTH_SHORT).show()
+
+                    toast(EnumAuthResult.ACCOUNT_CREATE_EXCEPTION.string)
                 }
 
                 EnumAuthResult.WRONG_DATA ->{
-                    Toast.makeText(this,"Неверно ведённые данные", Toast.LENGTH_SHORT).show()
+
+                    toast(EnumAuthResult.WRONG_DATA.string)
                 }
 
-                else -> Toast.makeText(this,"Неизвесная ошибка", Toast.LENGTH_SHORT).show()
+                else -> {
+                    toast("Неизвестная ошибка")
+                    Timber.d(result.string)
+                }
             }
         })
+    }
+
+    private fun Context.toast(message: CharSequence, duration: Int  = Toast.LENGTH_SHORT ){
+        Toast.makeText(this, message,duration).show()
     }
 }

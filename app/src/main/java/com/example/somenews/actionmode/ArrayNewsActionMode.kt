@@ -1,16 +1,19 @@
 package com.example.somenews.actionmode
 
+import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.example.somenews.R
 import com.example.somenews.db.entity.News
 import com.example.somenews.model.Article
 
 class ArrayNewsActionMode(
-    private val article: Article)
-    : ActionMode.Callback {
+    private val article: Article,
+    private val view: View
+) : ActionMode.Callback {
 
     companion object{
         var mActionMode: ActionMode? = null
@@ -38,6 +41,7 @@ class ArrayNewsActionMode(
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
         mode!!.menuInflater.inflate(R.menu.array_news_context_menu,menu)
+        view.setBackgroundColor(Color.LTGRAY)
         return true
     }
 
@@ -46,6 +50,7 @@ class ArrayNewsActionMode(
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
+        view.setBackgroundColor(Color.TRANSPARENT)
         mActionMode = null
     }
 

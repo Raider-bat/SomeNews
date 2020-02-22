@@ -1,14 +1,17 @@
 package com.example.somenews.actionmode
 
+import android.graphics.Color
 import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.example.somenews.R
 import com.example.somenews.item.LocalNewsItem
 
 class FeedAdminActionMode(
-    private val newsItem: LocalNewsItem
+    private val newsItem: LocalNewsItem,
+    private val view: View
 ): ActionMode.Callback {
     companion object{
         var mActionMode: ActionMode? = null
@@ -28,6 +31,7 @@ class FeedAdminActionMode(
 
     override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
        mode!!.menuInflater.inflate(R.menu.feed_admin_context_menu,menu)
+        view.setBackgroundColor(Color.LTGRAY)
         return true
     }
 
@@ -36,6 +40,7 @@ class FeedAdminActionMode(
     }
 
     override fun onDestroyActionMode(mode: ActionMode?) {
+        view.setBackgroundColor(Color.TRANSPARENT)
         mActionMode = null
     }
 

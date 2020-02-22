@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.somenews.R
 import com.example.somenews.item.LocalNewsItem
@@ -22,7 +23,7 @@ class FeedActivity : AppCompatActivity() {
 
     private val myViewModel : NewsViewModel by viewModel()
     private val userViewModel : UserViewModel by viewModel()
-    private val adapter  = GroupAdapter<GroupieViewHolder>()
+    private val groupAdapter  = GroupAdapter<GroupieViewHolder>()
     private val newsListHashMap = HashMap<Int,LocalNewsItem>()
 
     companion object{
@@ -54,10 +55,19 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
-        news_recyclerview.layoutManager = LinearLayoutManager(this)
-        news_recyclerview.adapter = adapter
+        news_recyclerview.apply {
 
-        val newsListLiveData = myViewModel.newsLiveDataFromLocally()
+            layoutManager = LinearLayoutManager(this@FeedActivity)
+            this.adapter = groupAdapter
+            addItemDecoration(
+                DividerItemDecoration(
+                this@FeedActivity,
+                    DividerItemDecoration.VERTICAL
+                )
+            )
+        }
+
+        val newsListLiveData = myViewModel.getNewsLiveDataFromLocally()
 
         newsListLiveData.observe(this, Observer { newsList ->
             newsList.map { news ->
@@ -65,10 +75,10 @@ class FeedActivity : AppCompatActivity() {
                 newsListHashMap[news.id] = LocalNewsItem(news)
             }
 
-            adapter.update(newsListHashMap.values)
+            groupAdapter.update(newsListHashMap.values)
         })
 
-        adapter.setOnItemClickListener(onItemClickListener)
+        groupAdapter.setOnItemClickListener(onItemClickListener)
     }
 
     private val onItemClickListener = OnItemClickListener{ item, _ ->

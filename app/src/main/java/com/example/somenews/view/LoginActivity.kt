@@ -1,5 +1,6 @@
 package com.example.somenews.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -56,28 +57,41 @@ class LoginActivity : AppCompatActivity() {
 
         signInResult.observe(this, Observer<EnumAuthResult> { result ->
             when(result){
+
                 EnumAuthResult.ADMIN_SIGN_UP ->{
-                    Toast.makeText(this, "Вход", Toast.LENGTH_LONG).show()
+
+                    toast(EnumAuthResult.ADMIN_SIGN_UP.string)
+
                     val intent = Intent(this, FeedAdminActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
+
                 EnumAuthResult.USER_SIGN_UP ->{
-                    Toast.makeText(this, "Вход", Toast.LENGTH_LONG).show()
+
+                    toast(EnumAuthResult.USER_SIGN_UP.string)
+
                     val intent = Intent(this, FeedActivity::class.java)
                     startActivity(intent)
                     finish()
                 }
+
                 EnumAuthResult.WRONG_PASSWORD ->{
-                    Toast.makeText(this, "Неверный пароль", Toast.LENGTH_LONG).show()
+
+                    toast(EnumAuthResult.WRONG_PASSWORD.string)
                 }
+
                 EnumAuthResult.ACCOUNT_NOT_FOUND ->{
-                    Toast.makeText(this, "Подобного аккаунта не существует", Toast.LENGTH_LONG).show()
+
+                    toast(EnumAuthResult.ACCOUNT_NOT_FOUND.string)
                 }
+
                 EnumAuthResult.WRONG_DATA ->{
-                    Toast.makeText(this, "Неверно введённые данные", Toast.LENGTH_LONG).show()
+
+                    toast(EnumAuthResult.WRONG_DATA.string)
                 }
-                else -> Toast.makeText(this, "Неизвестная ошибка", Toast.LENGTH_LONG).show()
+
+                else ->  toast("Неизвестная ошибка")
             }
         })
     }
@@ -90,4 +104,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun Context.toast(message: CharSequence, duration: Int  = Toast.LENGTH_SHORT ){
+        Toast.makeText(this, message,duration).show()
+    }
 }

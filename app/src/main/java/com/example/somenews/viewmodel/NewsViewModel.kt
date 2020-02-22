@@ -10,19 +10,21 @@ import com.example.somenews.model.NewsResponse
 import com.example.somenews.repository.NewsCallback
 import com.example.somenews.repository.NewsRepository
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
 
     private var newsLiveDataFromApi = MutableLiveData<NewsResponse>()
 
 
-    fun newsLiveDataFromApi(): LiveData<NewsResponse> {
+    fun getNewsLiveDataFromApi(): LiveData<NewsResponse> {
         getNewsFromNewsApi()
         return newsLiveDataFromApi
     }
 
-    fun newsLiveDataFromLocally(): LiveData<List<News>> =
-        repository.getAllNewsFromLocally()
+    fun getNewsLiveDataFromLocally(): LiveData<List<News>>
+            = repository.getAllNewsFromLocally()
+
 
     fun setNewsInLocallyDB(news: News) = viewModelScope.launch {
         repository.setNewsInLocally(news)
@@ -39,8 +41,9 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
                     newsLiveDataFromApi.value = news
                 }
             })
+            
         } catch (e: Exception) {
-            print(e.stackTrace)
+            Timber.d(e)
         }
     }
 }

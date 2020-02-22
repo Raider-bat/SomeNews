@@ -3,6 +3,7 @@ package com.example.somenews.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.somenews.R
+import com.example.somenews.converter.DateConverter
 import com.example.somenews.model.Article
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_full_article.*
@@ -20,6 +21,8 @@ class FullArticleActivity : AppCompatActivity() {
     }
 
     private fun setArticleOnView(article: Article) {
+        val dateDMY = DateConverter().getDateFormatDMY(article.publishedAt)
+        textView_article_publishedAt.text = dateDMY
         textView_article_title.text = article.title
         textView_article_content.text = article.content
         Picasso.get().load(article.urlToImage).into(imageView_article_general_image)
