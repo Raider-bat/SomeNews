@@ -42,3 +42,8 @@ ____
 #### Меню у администратора
 
 <img src="https://github.com/Raider-bat/SomeNews/blob/master/ImageSomeNews/admin_context_menu.jpg?raw=true" width="300" height="600" />
+
+____
+### ВНИМАНИЕ!!!
+
+Чтобы получить доступ к админ аккаунту нужно зарегистрировать аккаунт с именем "Raider"
