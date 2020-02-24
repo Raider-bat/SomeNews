@@ -8,6 +8,7 @@ import com.example.somenews.service.NewsService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 
 class NewsRepository (private val newsService: NewsService, private val newsDao: NewsDao) {
 
@@ -17,12 +18,16 @@ class NewsRepository (private val newsService: NewsService, private val newsDao:
                 "techcrunch",
                 "a103830c944d4b61bbcfaeb4fd90c808")
             .enqueue(object : Callback<NewsResponse>{
-                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {}
+                override fun onFailure(call: Call<NewsResponse>, t: Throwable) {
+                    Timber.d(t.message)
+                    callback.noConnection()
+                }
 
                 override fun onResponse(
                     call: Call<NewsResponse>,
                     response: Response<NewsResponse>
                 ) {
+                    Timber.d(response.toString())
                     callback.sendResponse(response.body()!!)
                 }
             })

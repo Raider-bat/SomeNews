@@ -11,8 +11,8 @@ android {
         applicationId "com.example.somenews"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 15
-        versionName "1.2"
+        versionCode 16
+        versionName "1.2.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

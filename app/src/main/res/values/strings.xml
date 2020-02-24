@@ -15,4 +15,5 @@
     <string name="text_view_name_rules">Имя должно состоять минимум из 3 символов</string>
     <string name="text_registration_textlink">Не зарегистрированы?</string>
     <string name="text_sign_in_login_button">Вход</string>
+    <string name="array_news_text_error">Ошибка сервера, возможно вы не подключены к сети</string>
 </resources>

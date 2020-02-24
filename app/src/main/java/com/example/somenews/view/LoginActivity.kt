@@ -99,9 +99,10 @@ class LoginActivity : AppCompatActivity() {
         registration_textlink_textView.setOnClickListener {
 
             fastStartActivity(RegistrationActivity::class.java)
+            registration_user_name_edit_text.text.clear()
+            registration_user_password_edit_text.text.clear()
         }
     }
-
 
     private fun Context.toast(message: CharSequence, duration: Int  = Toast.LENGTH_SHORT ){
         Toast.makeText(this, message,duration).show()

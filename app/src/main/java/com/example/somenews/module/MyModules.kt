@@ -44,7 +44,7 @@ val databaseModule = module {
 val networkModule =  module {
 
     fun provideRetrofitBuilder()  = Retrofit.Builder()
-        .baseUrl("http://newsapi.org")
+        .baseUrl("https://newsapi.org")
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

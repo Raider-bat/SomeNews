@@ -3,6 +3,7 @@ package com.example.somenews.view
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -12,7 +13,8 @@ import com.example.somenews.R
 import com.example.somenews.actionmode.ArrayNewsActionMode
 import com.example.somenews.db.entity.News
 import com.example.somenews.item.ArticleItem
-import com.example.somenews.model.NewsResponse
+import com.example.somenews.model.LiveResponse
+import com.example.somenews.model.NewsFromAPI
 import com.example.somenews.viewmodel.NewsViewModel
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
@@ -20,6 +22,7 @@ import com.xwray.groupie.OnItemClickListener
 import com.xwray.groupie.OnItemLongClickListener
 import kotlinx.android.synthetic.main.activity_array_news.*
 import org.koin.android.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ArrayNewsActivity : AppCompatActivity() {
 
@@ -48,10 +51,17 @@ class ArrayNewsActivity : AppCompatActivity() {
 
         val articles = myViewModel.getNewsLiveDataFromApi()
 
-        articles.observe(this, Observer<NewsResponse>{news ->
-            news.articles.map {article ->
+        articles.observe(this, Observer<LiveResponse<NewsFromAPI>>{news ->
+            Timber.d(news.toString())
+            news.data.map {article ->
+                if (news.isError){
 
-                groupAdapter.add(ArticleItem(article))
+                    progress_bar_array_news.visibility = ProgressBar.GONE
+                    textView_isError.visibility = TextView.VISIBLE
+                }else{
+
+                    groupAdapter.add(ArticleItem(article))
+                }
             }
 
             progress_bar_array_news.visibility = ProgressBar.INVISIBLE

@@ -25,7 +25,6 @@
         </activity>
         <activity android:name=".view.ArrayNewsActivity" />
         <activity android:name=".view.RegistrationActivity" />
-        <activity android:name=".view.AddNewsActivity" />
         <activity android:name=".view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -7,6 +7,19 @@
     tools:context=".view.ArrayNewsActivity">
 
 
+    <TextView
+        android:id="@+id/textView_isError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/array_news_text_error"
+        android:textColor="#AB292929"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_articles"
         android:layout_width="match_parent"
@@ -27,4 +40,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ProgressBar>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
