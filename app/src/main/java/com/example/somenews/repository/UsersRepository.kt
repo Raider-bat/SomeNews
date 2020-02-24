@@ -57,5 +57,4 @@ class UsersRepository(
             verifiedUserDao.getVerifiedUser()
         }
     }
-
 }

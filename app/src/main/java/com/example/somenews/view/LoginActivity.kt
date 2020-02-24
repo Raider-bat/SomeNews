@@ -43,8 +43,8 @@ class LoginActivity : AppCompatActivity() {
 
         sign_in_user_login_button.setOnClickListener {
 
-            val name = registration_user_name_edit_text.text.toString()
-            val password = registration_user_password_edit_text.text.toString()
+            val name = registration_user_name_edit_text.text.toString().trim()
+            val password = registration_user_password_edit_text.text.toString().trim()
             myViewModel.userSignUp(name,password)
         }
 
@@ -62,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
 
                     toast(EnumAuthResult.ADMIN_SIGN_UP.string)
 
-                    val intent = Intent(this, FeedAdminActivity::class.java)
-                    startActivity(intent)
+                    fastStartActivity(FeedAdminActivity::class.java)
                     finish()
                 }
 
@@ -71,8 +70,7 @@ class LoginActivity : AppCompatActivity() {
 
                     toast(EnumAuthResult.USER_SIGN_UP.string)
 
-                    val intent = Intent(this, FeedActivity::class.java)
-                    startActivity(intent)
+                    fastStartActivity(FeedActivity::class.java)
                     finish()
                 }
 
@@ -99,13 +97,18 @@ class LoginActivity : AppCompatActivity() {
     private fun clickOnRegistrationLink(){
 
         registration_textlink_textView.setOnClickListener {
-            val intent = Intent(this, RegistrationActivity::class.java)
-            startActivity(intent)
+
+            fastStartActivity(RegistrationActivity::class.java)
         }
     }
 
 
     private fun Context.toast(message: CharSequence, duration: Int  = Toast.LENGTH_SHORT ){
         Toast.makeText(this, message,duration).show()
+    }
+
+    private fun Context.fastStartActivity(startClass: Class<*>){
+        val intent = Intent(this, startClass)
+        startActivity(intent)
     }
 }

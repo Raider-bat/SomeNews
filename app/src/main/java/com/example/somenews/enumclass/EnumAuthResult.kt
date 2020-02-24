@@ -10,4 +10,3 @@ enum class EnumAuthResult(val string: String) {
     ACCOUNT_CREATE_EXCEPTION("Ошибка регистрации"),
     ACCOUNT_CREATE_ALREADY_EXIST("Подобный аккаунт уже существует");
 }
-

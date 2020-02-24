@@ -22,8 +22,8 @@ class RegistrationActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         registration_user_button.setOnClickListener {
-            val name = registration_user_name_edit_text.text.toString()
-            val password = registration_user_password_edit_text.text.toString()
+            val name = registration_user_name_edit_text.text.toString().trim()
+            val password = registration_user_password_edit_text.text.toString().trim()
             userViewModel.userRegistration(name, password)
 
         }

@@ -8,16 +8,16 @@ import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.example.somenews.R
 import com.example.somenews.db.entity.News
-import com.example.somenews.model.Article
+import com.example.somenews.model.NewsFromAPI
 
 class ArrayNewsActionMode(
-    private val article: Article,
+    private val newsFromAPI: NewsFromAPI,
     private val view: View
 ) : ActionMode.Callback {
 
     companion object{
         var mActionMode: ActionMode? = null
-        val setNewsLiveData = MutableLiveData<News>()
+        val setNewsFromAPILiveData = MutableLiveData<News>()
     }
 
     override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
@@ -25,13 +25,13 @@ class ArrayNewsActionMode(
         return when(item!!.itemId){
             R.id.add_article_in_ldb ->{
                 val news = News(
-                    article.title,
-                    article.urlToImage,
-                    article.content,
-                    article.publishedAt,
-                    article.author,
-                    article.url)
-                setNewsLiveData.value = news
+                    newsFromAPI.title,
+                    newsFromAPI.urlToImage,
+                    newsFromAPI.content,
+                    newsFromAPI.publishedAt,
+                    newsFromAPI.author,
+                    newsFromAPI.url)
+                setNewsFromAPILiveData.value = news
                 mode!!.finish()
                 true
             }
@@ -53,5 +53,4 @@ class ArrayNewsActionMode(
         view.setBackgroundColor(Color.TRANSPARENT)
         mActionMode = null
     }
-
 }

@@ -55,6 +55,9 @@ class FeedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed)
 
+        val newsListFromLocallyLiveData
+                = myViewModel.getNewsLiveDataFromLocally()
+
         news_recyclerview.apply {
 
             layoutManager = LinearLayoutManager(this@FeedActivity)
@@ -67,9 +70,7 @@ class FeedActivity : AppCompatActivity() {
             )
         }
 
-        val newsListLiveData = myViewModel.getNewsLiveDataFromLocally()
-
-        newsListLiveData.observe(this, Observer { newsList ->
+        newsListFromLocallyLiveData.observe(this, Observer { newsList ->
             newsList.map { news ->
                 println(news)
                 newsListHashMap[news.id] = LocalNewsItem(news)

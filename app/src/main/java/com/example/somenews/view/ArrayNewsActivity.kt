@@ -2,6 +2,7 @@ package com.example.somenews.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -49,9 +50,11 @@ class ArrayNewsActivity : AppCompatActivity() {
 
         articles.observe(this, Observer<NewsResponse>{news ->
             news.articles.map {article ->
-                groupAdapter.add(ArticleItem(article))
 
+                groupAdapter.add(ArticleItem(article))
             }
+
+            progress_bar_array_news.visibility = ProgressBar.INVISIBLE
         })
 
         groupAdapter.apply {
@@ -61,7 +64,7 @@ class ArrayNewsActivity : AppCompatActivity() {
         }
 
         val setNewsLiveData =
-            ArrayNewsActionMode.setNewsLiveData
+            ArrayNewsActionMode.setNewsFromAPILiveData
         setNewsLiveData.observe(this, Observer<News>{news ->
             if (ArrayNewsActionMode.mActionMode != null){
                 myViewModel.setNewsInLocallyDB(news)
@@ -77,8 +80,8 @@ class ArrayNewsActivity : AppCompatActivity() {
         if (ArrayNewsActionMode.mActionMode == null){
 
             val intent = Intent(this, FullArticleActivity::class.java)
-            println(articleData.article)
-            intent.putExtra(ARTICLE_KEY,articleData.article)
+            println(articleData.newsFromAPI)
+            intent.putExtra(ARTICLE_KEY,articleData.newsFromAPI)
             startActivity(intent)
         }
     }
@@ -86,7 +89,7 @@ class ArrayNewsActivity : AppCompatActivity() {
     private val onItemLongClickListener = OnItemLongClickListener{ item, view ->
 
         val articleItem = item as ArticleItem
-        val article = articleItem.article
+        val article = articleItem.newsFromAPI
         if (ArrayNewsActionMode.mActionMode !=null){
 
             return@OnItemLongClickListener false

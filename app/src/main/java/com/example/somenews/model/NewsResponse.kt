@@ -5,13 +5,13 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class NewsResponse(
-    val articles: List<Article>,
+    val articles: List<NewsFromAPI>,
     val status: String,
     val totalResults: Int
 ) : Parcelable
 
 @Parcelize
-data class Article(
+data class NewsFromAPI(
     var author: String,
     val content: String,
     val description: String,
