@@ -24,6 +24,8 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textSize="16sp"
+            android:singleLine="true"
+            android:maxLength="30"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -40,6 +42,8 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:textSize="16sp"
+            android:singleLine="true"
+            android:maxLength="30"
             app:layout_constraintEnd_toEndOf="@+id/registration_user_name_edit_text"
             app:layout_constraintStart_toStartOf="@+id/registration_user_name_edit_text"
             app:layout_constraintTop_toBottomOf="@+id/registration_user_name_edit_text" />

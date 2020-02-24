@@ -36,7 +36,7 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
     fun userSignUp(name:String, password:String){
          viewModelScope.launch {
             try {
-                if (name.length in 3..25 || password.length in 6..30 ) {
+                if (name.length in 3..25 && password.length in 6..30 ) {
                     val user = repository.getByName(name)
                     println(user)
                     val verified =
@@ -72,13 +72,12 @@ class UserViewModel(private val repository: UsersRepository): ViewModel() {
                 Timber.d(e)
             }
          }
-
     }
 
     fun userRegistration(name: String,password: String) = viewModelScope.launch{
         try {
 
-            if (name.length in 3..25 || password.length in 6..30 ) {
+            if (name.length in 3..25 && password.length in 6..30 ) {
                 val user = repository.getByName(name) as User?
 
                 if (user?.name != null) {
